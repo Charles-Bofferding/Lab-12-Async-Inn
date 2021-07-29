@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lab_12_Async_Inn.Migrations
 {
     [DbContext(typeof(AsyncInnDbContext))]
-    [Migration("20210728044446_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20210729021324_ServiceUpdate")]
+    partial class ServiceUpdate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,7 +20,7 @@ namespace Lab_12_Async_Inn.Migrations
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Lab_12_Async_Inn.Models.Amenities", b =>
+            modelBuilder.Entity("Lab_12_Async_Inn.Models.Amenity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -33,7 +33,24 @@ namespace Lab_12_Async_Inn.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Amenitiess");
+                    b.ToTable("Amenities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Fridge"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Cable Channels"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Mini Bar"
+                        });
                 });
 
             modelBuilder.Entity("Lab_12_Async_Inn.Models.Hotel", b =>
@@ -44,11 +61,9 @@ namespace Lab_12_Async_Inn.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Country")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -56,20 +71,34 @@ namespace Lab_12_Async_Inn.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("State")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StreetAddress")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Hotels");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "South Hampton Hotel"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "The Grand on Vegas Blvd"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Queens Rest"
+                        });
                 });
 
             modelBuilder.Entity("Lab_12_Async_Inn.Models.Room", b =>
@@ -89,6 +118,26 @@ namespace Lab_12_Async_Inn.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Rooms");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Layout = 0,
+                            Name = "Budget Studio"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Layout = 1,
+                            Name = "Standard Suite"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Layout = 2,
+                            Name = "VIP Suite"
+                        });
                 });
 #pragma warning restore 612, 618
         }

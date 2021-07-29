@@ -9,7 +9,6 @@ namespace Lab_12_Async_Inn.Models
     public class Amenity
     {
 
-        [Required]
         public int Id { get; set; }
 
         [Required]

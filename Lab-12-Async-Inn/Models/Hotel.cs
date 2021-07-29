@@ -8,7 +8,7 @@ namespace Lab_12_Async_Inn.Models
 {
     public class Hotel
     {
-        [Required]
+        
         public int Id { get; set; }
 
         [Required]
