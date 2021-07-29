@@ -1,4 +1,6 @@
 using Lab_12_Async_Inn.Data;
+using Lab_12_Async_Inn.Models.Interfaces;
+using Lab_12_Async_Inn.Models.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -33,6 +35,11 @@ namespace Lab_12_Async_Inn
                 string connectionString = Configuration.GetConnectionString("DefaultConnection");
                 options.UseSqlServer(connectionString);
             });
+
+            //Adding in new services to intercept before we try the controllers
+            services.AddTransient<IAmenity, AmenityService>();
+            services.AddTransient<IHotel, HotelService>();
+            services.AddTransient<IRoom, RoomService>();
 
             services.AddControllers();
 
