@@ -19,5 +19,8 @@ namespace Lab_12_Async_Inn.Models
         //0 = studio
         //1 = 1 bedroom
         //2 = 2 bedroom
+
+        //List of ammenities to tie to
+        public List<RoomAmenity> RoomAmenities { get; set; }
     }
 }

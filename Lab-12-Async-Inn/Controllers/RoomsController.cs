@@ -81,6 +81,23 @@ namespace Lab_12_Async_Inn.Controllers
             return NoContent();
         }
 
+        [HttpPost]
+        [Route("{roomId}/Amenity/{amenityId}")]
+        public async Task<IActionResult> AddAmenityToRoom(int roomId, int amenityId)
+        {
+            await _room.AddAmenityToRoom(roomId, amenityId);
+            return NoContent();
+        }
+
+        [HttpDelete]
+        [Route("{roomId}/Amenity/{amenityId}")]
+        public async Task<IActionResult> RemoveAmentityFromRoom(int roomId, int amenityId)
+        {
+            await _room.RemoveAmentityFromRoom(roomId, amenityId);
+            return NoContent();
+        }
+
+
         //This is not in John's example or described in the workshop instructions
         //private bool RoomExists(int id)
         //{

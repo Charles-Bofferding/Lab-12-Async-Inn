@@ -31,15 +31,19 @@ namespace Lab_12_Async_Inn.Models.Services
         //Task 2 of 5, return all rooms stored in DB
         public async Task<List<Room>> GetRooms()
         {
-            var rooms = await _context.Rooms.ToListAsync();
-            return rooms;
+            return await _context.Rooms
+              .Include(c => c.RoomAmenities)
+              .ThenInclude(e => e.Amenity)
+              .ToListAsync();
         }
 
         //Task 3 of 5, reutrn Room with chosen ID
         public async Task<Room> GetRoom(int id)
         {
-            Room room = await _context.Rooms.FindAsync(id);
-            return room;
+            return await _context.Rooms
+              .Include(c => c.RoomAmenities)
+              .ThenInclude(e => e.Amenity)
+              .FirstOrDefaultAsync(s => s.Id == id);
         }
 
         //Task 4 of 5, Update Room at ID to input amenity
@@ -58,5 +62,28 @@ namespace Lab_12_Async_Inn.Models.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task AddAmenityToRoom(int roomId, int amenityId)
+        {
+            RoomAmenity roomAmenity = new RoomAmenity()
+            {
+                RoomId = roomId,
+                AmenityId = amenityId
+            };
+
+            _context.Entry(roomAmenity).State = EntityState.Added;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RemoveAmentityFromRoom(int roomId, int amenityId)
+        {
+            RoomAmenity roomAmenity = new RoomAmenity()
+            {
+                RoomId = roomId,
+                AmenityId = amenityId
+            };
+
+            _context.Entry(roomAmenity).State = EntityState.Deleted;
+            await _context.SaveChangesAsync();
+        }
     }
 }

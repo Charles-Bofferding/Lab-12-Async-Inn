@@ -19,3 +19,10 @@ Amenities is the different features that can be tied to rooms
 The controllers no longer implement the database functions. Instead the controllers only call
 the methods that are defined in the different services. These are defined by the interfaces
 made for each different table.
+
+## Lab 14 Update
+So I think that I have added in everything but the HotelRoomController. I can not check this because the 
+IIS server will not run. With some help from Kjell (sorry if I got your name wrong) I was able to figure out
+that the https server was going to 55133 which is in a restricted range of ports for me but can not find any
+way to change that port. We both tried to troubleshoot that but they had to catch a bus and I did not get
+inspiration afterwards so I did the coding as best I could without being able to run the server.

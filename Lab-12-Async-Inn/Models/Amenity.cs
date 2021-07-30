@@ -14,5 +14,8 @@ namespace Lab_12_Async_Inn.Models
         [Required]
         public string Name { get; set; }
 
+        //List of Rooms to tie to
+        public List<RoomAmenity> RoomAmenities { get; set; }
+
     }
 }
