@@ -16,6 +16,10 @@ namespace Lab_12_Async_Inn.Data
 
         public DbSet<Amenity> Amenities { get; set; }
 
+        public DbSet<RoomAmenity> RoomAmenities { get; set; }
+
+        public DbSet<HotelRoom> HotelRooms { get; set; }
+
         public AsyncInnDbContext(DbContextOptions options) : base(options)
         {
         }

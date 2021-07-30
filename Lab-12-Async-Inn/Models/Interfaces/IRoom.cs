@@ -23,5 +23,11 @@ namespace Lab_12_Async_Inn.Models.Interfaces
         // DELETE
         Task Delete(int id);
 
+        //Add Ammenity
+        Task AddAmenityToRoom(int roomId, int amenityId);
+
+        //Remove ammenity from room
+        Task RemoveAmentityFromRoom(int roomId, int amenityId);
+
     }
 }

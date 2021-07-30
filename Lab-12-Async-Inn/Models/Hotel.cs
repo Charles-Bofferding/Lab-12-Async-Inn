@@ -29,5 +29,7 @@ namespace Lab_12_Async_Inn.Models
         //[Required]
         public string Phone { get; set; }
 
+        public List<HotelRoom> HotelRooms { get; set; }
+
     }
 }

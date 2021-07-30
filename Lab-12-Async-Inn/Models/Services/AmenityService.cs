@@ -30,15 +30,19 @@ namespace Lab_12_Async_Inn.Models.Services
         //Task 2 of 5, return all amenities stored in DB
         public async Task<List<Amenity>> GetAmenities()
         {
-            var amenities = await _context.Amenities.ToListAsync();
-            return amenities;
+            return await _context.Amenities
+              .Include(c => c.RoomAmenities)
+              .ThenInclude(e => e.Room)
+              .ToListAsync();
         }
 
         //Task 3 of 5, reutrn amenity with chosen ID
         public async Task<Amenity> GetAmenity(int id)
         {
-            Amenity amenity = await _context.Amenities.FindAsync(id);
-            return amenity;
+            return await _context.Amenities
+              .Include(c => c.RoomAmenities)
+              .ThenInclude(e => e.Room)
+              .FirstOrDefaultAsync(s => s.Id == id);
         }
 
         //Task 4 of 5, Update amenity at ID to input amenity
