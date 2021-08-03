@@ -1,4 +1,5 @@
 ﻿using Lab_12_Async_Inn.Data;
+using Lab_12_Async_Inn.Models.DTO;
 using Lab_12_Async_Inn.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -21,7 +22,7 @@ namespace Lab_12_Async_Inn.Models.Services
         }
 
         //Task 1 of 5, Create Single Amenity
-        public async Task<Hotel> Create(Hotel hotel)
+        public async Task<HotelDTO> Create(Hotel hotel)
         {
             _context.Entry(hotel).State = EntityState.Added;
             await _context.SaveChangesAsync();
