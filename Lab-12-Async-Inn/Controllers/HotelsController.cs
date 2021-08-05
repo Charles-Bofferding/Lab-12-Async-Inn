@@ -17,6 +17,7 @@ namespace Lab_12_Async_Inn.Controllers
     public class HotelsController : ControllerBase
     {
         private readonly IHotel _hotel;
+        //This should get added in
 
         public HotelsController(IHotel h)
         {
