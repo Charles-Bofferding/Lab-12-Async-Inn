@@ -27,4 +27,7 @@ that the https server was going to 55133 which is in a restricted range of ports
 way to change that port. We both tried to troubleshoot that but they had to catch a bus and I did not get
 inspiration afterwards so I did the coding as best I could without being able to run the server.
 
-## Lab 15 Update
+## Lab 18 and 19 update
+Alright, I think I have everything linked up for the users in the database and all that jazz. Had to throw in some boilerplate ID properties into 
+some of the models to get the dotnet migration process to work but I am focusing on the Authentification side of things. Over the weekend I will circle back to that,
+I think the problem is tied to not setting up the links between all the models corectly.

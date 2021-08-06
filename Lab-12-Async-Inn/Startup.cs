@@ -2,6 +2,7 @@ using Lab_12_Async_Inn.Data;
 using Lab_12_Async_Inn.Models;
 using Lab_12_Async_Inn.Models.Interfaces;
 using Lab_12_Async_Inn.Models.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -45,6 +46,31 @@ namespace Lab_12_Async_Inn
                 options.User.RequireUniqueEmail = true;
             }).AddEntityFrameworkStores<AsyncInnDbContext>();
 
+            //Adding in authentification stuff
+            services.AddScoped<JwtTokenService>();
+
+            services.AddAuthorization(options =>
+            {
+                // Add "Name of Policy", and the Lambda returns a definition
+                options.AddPolicy("create", policy => policy.RequireClaim("permissions", "create"));
+                options.AddPolicy("update", policy => policy.RequireClaim("permissions", "update"));
+                options.AddPolicy("delete", policy => policy.RequireClaim("permissions", "delete"));
+            });
+
+            // Add the wiring for adding "Authentication" for our API
+            // "We want the system to always use these "Schemes" to authenticate us
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+              .AddJwtBearer(options =>
+              {
+                   // Tell the authenticaion scheme "how/where" to validate the token + secret
+                   options.TokenValidationParameters = JwtTokenService.GetValidationParameters(Configuration);
+              });
+
             //Adding in new services to intercept before we try the controllers
             services.AddTransient<IAmenity, AmenityService>();
             services.AddTransient<IHotel, HotelService>();
@@ -73,6 +99,9 @@ namespace Lab_12_Async_Inn
             }
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             // SWAGGER - JSON DEFINIION
             app.UseSwagger(options => {

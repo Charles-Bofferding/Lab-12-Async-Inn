@@ -42,7 +42,7 @@ namespace Lab_12_Async_Inn.Models.Services
             return await _context.HotelRooms
               .Include(c => c.Hotel)
               .ThenInclude(e => e.HotelRooms)
-              .FirstOrDefaultAsync(s => s.RoomId == id);
+              .FirstOrDefaultAsync(s => s.Id == id);
         }
 
         //Task 4 of 5, Update HotelRoom at ID

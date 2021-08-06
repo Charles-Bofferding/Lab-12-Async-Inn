@@ -64,7 +64,7 @@ namespace Lab_12_Async_Inn.Models.Services
 
         public async Task AddAmenityToRoom(int roomId, int amenityId)
         {
-            RoomAmenity roomAmenity = new RoomAmenity()
+            RoomAmenity roomAmenity = new()
             {
                 RoomId = roomId,
                 AmenityId = amenityId
@@ -76,7 +76,7 @@ namespace Lab_12_Async_Inn.Models.Services
 
         public async Task RemoveAmentityFromRoom(int roomId, int amenityId)
         {
-            RoomAmenity roomAmenity = new RoomAmenity()
+            RoomAmenity roomAmenity = new()
             {
                 RoomId = roomId,
                 AmenityId = amenityId
