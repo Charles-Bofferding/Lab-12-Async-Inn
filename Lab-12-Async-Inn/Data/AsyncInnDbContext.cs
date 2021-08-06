@@ -1,4 +1,6 @@
 ﻿using Lab_12_Async_Inn.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Lab_12_Async_Inn.Data
 {
-    public class AsyncInnDbContext : DbContext
+    public class AsyncInnDbContext : IdentityDbContext<ApplicationUser>
     {
 
         public DbSet<Room> Rooms { get; set; }
@@ -26,8 +28,9 @@ namespace Lab_12_Async_Inn.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // This calls the base method, but does nothing
-            // base.OnModelCreating(modelBuilder);
+
+            // This calls the base method, and Identity needs it or it does nothing, comments are inconsistent
+            base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Amenity>().HasData(
               new Amenity { Id = 1, Name = "Fridge" },
@@ -47,7 +50,41 @@ namespace Lab_12_Async_Inn.Data
                 new Room { Id = 3, Name = "VIP Suite", Layout = 2 }
             );
 
+            //Create different roles in the DB
+            SeedRole(modelBuilder, "Administrator", "create", "update", "delete");
+            SeedRole(modelBuilder, "Editor", "create", "update");
+            SeedRole(modelBuilder, "Writer", "create");
+
         }
+
+        private int NextId { get; set; } = 1;
+
+        private void SeedRole(ModelBuilder modelBuilder, string roleName, params string[] permissions)
+        {
+            var role = new IdentityRole
+            {
+                Id = roleName.ToLower(),
+                Name = roleName,
+                NormalizedName = roleName.ToUpper(),
+                ConcurrencyStamp = Guid.Empty.ToString()
+            };
+            modelBuilder.Entity<IdentityRole>().HasData(role);
+
+
+            // Go through the permissions list (the params) and seed a new entry for each
+            var roleClaims = permissions.Select(permission =>
+            new IdentityRoleClaim<string>
+            {
+                //Because of following John's path kind of this is a hanging error
+                Id = NextId++,
+                RoleId = role.Id,
+                ClaimType = "permissions", // This matches what we did in Startup.cs
+                ClaimValue = permission
+            }).ToArray();
+
+            modelBuilder.Entity<IdentityRoleClaim<string>>().HasData(roleClaims);
+        }
+
 
     }
 }

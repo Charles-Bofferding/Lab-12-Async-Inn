@@ -19,7 +19,7 @@ namespace Lab_12_Async_Inn.Models.Interfaces
         Task<HotelDTO> GetHotel(int id);
 
         // UPDATE
-        Task<Hotel> UpdateHotel(int id, Hotel hotel);
+        Task<HotelDTO> UpdateHotel(int id, Hotel hotel);
 
         // DELETE
         Task Delete(int id);
